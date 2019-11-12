@@ -1,0 +1,109 @@
+<!-- Pantalla que muestra todos las cuentas registradas que tiene el usuario. -->
+
+<div *ngIf="mostrarInicioInscripcionCuentas" class="container">
+    <div class="row cuentasRegistradas">
+        <div class="col-md-12">
+            <span>Cuentas registradas</span>
+        </div>
+    </div>
+    <div class="row subtituloCuentasRegistradas">
+        <div class="col-md-12">
+            <span>Registra las cuentas bancarias en las que quieres recibir el pago de devoluciones de aportes</span>
+        </div>
+    </div>
+    <br>
+    <div class="row form-group">
+        <div *ngFor="let cuenta of pruebaCuentasBancarias" class="tarjetasCuentasBancarias" style="margin-top: 10px;">
+            <div class="row">
+                <div class="col-md-8">
+                    <img src="assets/images/logobancos/bancolombia.png" alt="Icono Bancolombia"><label for="" class="labelTarjetas" style="padding-left: 10px;">{{cuenta.nombreBanco}}</label>
+                </div>
+                <div class="col-md-4">
+                    <u class="eliminar" (click)="eliminarCuentaRegistrada()">Eliminar</u><i class=" fa fa-trash-o " aria-hidden="true " style="padding-left: 5px; "></i>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="spanTarjetasCuentasBancarias">{{cuenta.tipoCuenta}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 ">
+                    <label for=" " class="labelTarjetasCuentasBancarias ">{{cuenta.numeroCuenta}}</label>
+                </div>
+                <div class="col-md-6" style="text-align: right;">
+                    <button type="button" class="btn btn-primary" [routerLink]="['/actualizarCuenta', cuenta.id]">EDITAR</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Esta tarjeta es la tarjeta que debe quedar fija que es la que adiciona nuevas cuentas -->
+
+        <div class="agregarNuevaCuenta" style="margin-top: 10px;" [routerLink]="['/registroCuenta']">
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <div class="row" style="text-align: center;">
+                        <div class="col-md-12">
+                            <i class="fa fa-plus-circle fa-3x botonAdicionarNuevaCuenta" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+            <div class="row" style="text-align: center;">
+                <div class="col-md-12">
+                    <span class="textoAgregarNuevaCuenta">Agregar nueva cuenta</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-md-12">
+            <div class="alert alert-secondary mensajeCuentaError" role="alert">
+                <img src="assets/images/alertas/exclamation-triangle-regular.png" alt="Icono warning" class="iconoWarningCuentaNoRegistrada"><span>La cuenta inscrita no pertenece al titular, por favor validar y volver a registrar la cuenta. <br>Para más información llame a: <strong>(00) 000 0000</strong></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ***************************************************************************** -->
+
+<!-- Pantalla cuando el usuario no tiene cuentas registradas -->
+
+<div *ngIf="noTieneCuentasRegistradas" class="container">
+    <div class="row cuentasRegistradas ">
+        <div class="col-md-12 ">
+            <span>Cuentas registradas</span>
+        </div>
+    </div>
+    <div class="row subtituloCuentasRegistradas ">
+        <div class="col-md-12 ">
+            <span>Aquí podrás registrar las cuentas bancarias en las que quieres recibir el pago de devoluciones de tus aportes</span>
+        </div>
+    </div>
+    <div class="row mensajeCuentasRegistradas ">
+        <div class="col-md-12 ">
+            <span>Todavía no tienes ninguna cuenta registrada</span>
+        </div>
+    </div>
+    <div class="row imagenCaraTriste ">
+        <div class="col-md-12 ">
+            <i class="fa fa-frown-o " aria-hidden="true "></i>
+        </div>
+    </div>
+    <div class="row preguntaRegistrarCuentas ">
+        <div class="col-md-12 ">
+            <span>¿Te gustaría registrar una?</span>
+        </div>
+    </div>
+    <div class="row botonRegistrarCuentas ">
+        <div class="col-md-4 "></div>
+        <div class="col-md-4 ">
+            <button type="button " class="btn btn-primary " [routerLink]="['/registroCuenta']">REGISTRAR CUENTA</button>
+        </div>
+        <div class="col-md-4 "></div>
+    </div>
+</div>
+
+<!-- ***************************************************************************** -->

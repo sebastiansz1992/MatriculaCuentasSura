@@ -1,0 +1,173 @@
+<!-- Pantalla que muestra el formulario para realizar un registro de una cuenta. -->
+
+<form [hidden]="false" [formGroup]="formsInscripcionCuentas" action="">
+    <div class="container" style="margin-bottom: 15px;">
+        <div class="row titulosSeccion">
+            <div class="col-md-12">
+                <span>Registro de cuentas</span>
+            </div>
+        </div>
+        <div class="row mensajeAlertaInformacion">
+            <div class="col-md-12">
+                <div class="alert alert-primary" role="alert">
+                    <img src="assets/images/productos/comment.png" alt="informacion"> <span style="padding-left: 10px;">Recuerda que la cuenta que registres debe estar a nombre de la empresa como titular en la entidad bancaria</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-4">
+                <label class="labelsLetra control-label required" for="tipoDocumento">Documento de identidad</label>
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-2"></div>
+            <div class="col-md-3 form-group">
+                <select name="Tipos de Documento" id="tipoDocumento" class="form-control letraInputs" formControlName="tipoDocumento">                    
+                    <option value="null">Tipo de documento</option>
+                    <option value="1">CEDULA DE CIUDADANIA</option>
+                    <option value="2">TARJETA DE IDENTIDAD</option>
+                </select>
+                <div *ngIf="formsInscripcionCuentas.get('tipoDocumento').invalid && (formsInscripcionCuentas.get('tipoDocumento').dirty || formsInscripcionCuentas.get('tipoDocumento').touched)" class="alert alert-danger" style="margin-top: 5px;">
+                    <span>Debe seleccionar un tipo de documento!</span>
+                </div>
+            </div>
+            <div class="col-md-5 form-group">
+                <input type="number" id="numeroDocumento" class="form-control letraInputs" placeholder="Ingresa número de documento" formControlName="numeroDocumento" required>
+                <div *ngIf="formsInscripcionCuentas.get('numeroDocumento').invalid && (formsInscripcionCuentas.get('numeroDocumento').dirty || formsInscripcionCuentas.get('numeroDocumento').touched)" class="alert alert-danger" style="margin-top: 5px;">
+                    <span>Debe ingresar el número de documento!</span>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <label class="labelsLetra control-label required" for="listaBancos">Banco</label>
+                <select (change)="onChange($event)" name="Lista de bancos" id="listaBancos" class="form-control letraInputs" formControlName="listaBancos">
+                        <option [value]="null">Selecciona la entidad bancaria</option>
+                        <option [value]="1">Bancolombia</option>
+                        <option [value]="2">Bbva</option>
+                        <option [value]="3">AV Villas</option>
+                        <option [value]="4">Colpatria</option>
+                </select>
+                <div *ngIf="formsInscripcionCuentas.get('listaBancos').invalid && (formsInscripcionCuentas.get('listaBancos').dirty || formsInscripcionCuentas.get('listaBancos').touched)" class="alert alert-danger" style="margin-top: 5px;">
+                    <span>Debe seleccionar una entidad financiera!</span>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 form-group">
+                <label class="labelsLetra control-label required" for="numeroCuenta">Número de cuenta</label>
+                <input #numeroCuenta type="number" id="numeroCuenta" class="form-control letraInputs" placeholder="Ingresa número de cuenta" formControlName="numeroCuenta" required>
+                <div *ngIf="formsInscripcionCuentas.get('numeroCuenta').invalid && (formsInscripcionCuentas.get('numeroCuenta').dirty || formsInscripcionCuentas.get('numeroCuenta').touched)" class="alert alert-danger" style="margin-top: 5px;">
+                    <span>Debe ingresar el número de cuenta!</span>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 form-group">
+                <label class="labelsLetra control-label required" for="confirmarCuenta">Confirmar número de cuenta</label>
+                <input type="number" id="confirmarCuenta" class="form-control letraInputs" placeholder="Ingresa número de cuenta" formControlName="confirmarCuenta" required>
+                <div *ngIf="formsInscripcionCuentas.get('confirmarCuenta').invalid && (formsInscripcionCuentas.get('confirmarCuenta').dirty || formsInscripcionCuentas.get('confirmarCuenta').touched)" class="alert alert-danger" style="margin-top: 5px;">
+                    <span>Debe confirmar el número de cuenta!</span>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-2"></div>
+            <div class="col-md-4">
+                <label class="labelsLetra control-label required" for="tipoCuenta">Tipo de cuenta</label>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="cuenta" id="cuentaAhorros" formControlName="cuenta" value="Ahorros">
+                            <label class="form-check-label letraInputs" for="cuentaAhorros">Ahorro</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="cuenta" id="cuentaCorriente" formControlName="cuenta" value="Corriente">
+                            <label class="form-check-label letraInputs" for="cuentaCorriente">Corriente</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6"></div>
+        </div>
+        <hr style="width: 67%;">
+        <div class="row form-group">
+            <div class="col-md-2"></div>
+            <div class="col-md-4">
+                <label class="labelsLetra control-label required" for="">¿A qué producto te gustaría asociar esta cuenta?</label>
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-12">
+                <div class="row" style="text-align: center;">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-3">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="devolucionAportes" formControlName="devolucionAportes">
+                            <div class="col-md-12 imagenProducto">
+                                <div class="row" style="text-align: end;">
+                                    <div class="col-md-12 interrogacionProductos">
+                                        <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                                <img src="assets/images/productos/coins.png" alt="Monedas">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="letraInputs">Devolución de aportes</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="prestacionEconomica" formControlName="prestacionEconomica">
+                            <div class="col-md-12 imagenProducto">
+                                <div class="row" style="text-align: end;">
+                                    <div class="col-md-12 interrogacionProductos">
+                                        <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                                <img src="assets/images/productos/investment.png" alt="Bolsa de dinero">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="letraInputs">Prestaciones económicas</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+            </div>
+        </div>
+        <hr style="width: 67%;">
+        <div class="row">
+            <div class="col-md-12" style="text-align: center;">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="terminosCondiciones" formControlName="terminosCondiciones">
+                    <label class="letraInputs" style="margin-bottom: 3px;" for=""><u>Acepto términos y condiciones</u></label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4" style="text-align: center; margin-top: 15px;">
+                <button type="button" class="btn btn-primary btn-lg" (click)="inscribirCuenta('registrar')" [disabled]="!formsInscripcionCuentas.valid">GUARDAR CUENTA</button>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+</form>
+
+<!-- ***************************************************************************** -->

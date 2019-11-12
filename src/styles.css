@@ -1,0 +1,267 @@
+@font-face {
+    font-family: 'FS-Joey';
+    src: url('assets/fonts/fs-joey/FSJoey-Medium_0.ttf')
+}
+
+@font-face {
+    font-family: 'Barlow-bold';
+    src: url('assets/fonts/barlow/Barlow-Bold.ttf')
+}
+
+@font-face {
+    font-family: 'Barlow-medium';
+    src: url('assets/fonts/barlow/Barlow-Medium.ttf')
+}
+
+@font-face {
+    font-family: 'Robot-regular';
+    src: url('assets/fonts/roboto/Roboto-Regular.ttf')
+}
+
+.titulosSeccion {
+    color: #0097d8;
+    text-align: center;
+    font-size: 34px;
+    font-family: 'FS-Joey'
+}
+
+.cuentasRegistradas {
+    color: #0e3ea4;
+    text-align: center;
+    opacity: 1;
+    font-size: 26px;
+    font-weight: 700;
+    font-family: 'FS-Joey'
+}
+
+.subtituloCuentasRegistradas {
+    color: #6b6b6b;
+    font-size: 15px;
+    text-align: center
+}
+
+.mensajeCuentasRegistradas {
+    color: #0097d8;
+    font-size: 30px;
+    text-align: center;
+    letter-spacing: .06px;
+    opacity: 1;
+    margin-top: 20px;
+    font-family: 'FS-Joey'
+}
+
+.imagenCaraTriste {
+    font-size: 100px;
+    text-align: center;
+    opacity: .7;
+    color: #979797;
+    margin-top: -15px
+}
+
+.preguntaRegistrarCuentas {
+    color: #989898;
+    font-size: 22px;
+    text-align: center;
+    font-family: 'FS-Joey'
+}
+
+.botonRegistrarCuentas {
+    text-align: center;
+    margin-top: 15px
+}
+
+.btn-primary {
+    color: #fff!important;
+    background-color: #0097d8!important;
+    border-color: #0097d8!important;
+    border-radius: 30px;
+    font-weight: 700;
+    width: 70%
+}
+
+.mensajeAlertaInformacion {
+    text-align: center;
+    font-size: 15px;
+    font-family: 'Robot-regular'
+}
+
+.letraInputs {
+    font-family: 'Robot-regular';
+    color: #727272;
+    font-size: 13px
+}
+
+.imagenProducto {
+    border: .5px solid #a2a2a2;
+    padding: 20px;
+    border-radius: 4px;
+    opacity: 1;
+    width: 100%;
+    height: 105px
+}
+
+.interrogacionProductos {
+    margin-top: -20px;
+    margin-left: 14px
+}
+
+.labelAlertas {
+    color: #8d8d8d;
+    font-size: 16px
+}
+
+.labelsLetra {
+    color: #6b6b6b;
+    font-weight: 700;
+    font-family: 'FS-Joey'
+}
+
+.spansLetra {
+    color: #5769de;
+    font-weight: 700
+}
+
+.tarjetasCuentasBancarias {
+    background: no-repeat padding-box #fff;
+    box-shadow: 0 3px 6px #00000029;
+    border-radius: 4px;
+    opacity: 1;
+    padding: 15px;
+    max-width: 30%;
+    margin-left: 25px;
+    width: 100%;
+}
+
+@media (max-width:768px) {
+    .tarjetasCuentasBancarias {
+        background: no-repeat padding-box #fff;
+        box-shadow: 0 3px 6px #00000029;
+        border-radius: 4px;
+        opacity: 1;
+        padding: 15px;
+        max-width: 100%;
+        margin: 15px
+    }
+    .agregarNuevaCuenta {
+        background: no-repeat padding-box #fff;
+        border: .800000011920929px dashed #707070;
+        border-radius: 4px;
+        opacity: 1;
+        padding: 15px;
+        max-width: 100% !important;
+        margin-left: 15px !important;
+        cursor: pointer
+    }
+    .editarInformacion {
+        background: no-repeat padding-box #f0f0F00D!important;
+        border: .5px solid #8c8e8e!important;
+        border-radius: 4px!important;
+        opacity: 1!important;
+        width: 100%!important;
+        margin-left: 0!important;
+        padding: 20px!important;
+        text-align: center!important
+    }
+}
+
+.agregarNuevaCuenta {
+    background: no-repeat padding-box #fff;
+    border: .800000011920929px dashed #707070;
+    border-radius: 4px;
+    opacity: 1;
+    padding: 25px;
+    max-width: 30%;
+    margin-left: 25px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.textoAgregarNuevaCuenta {
+    font-size: 24px;
+    font-family: 'FS-Joey';
+    color: #656565
+}
+
+.mensajeCuentaError {
+    margin-left: 10px;
+    margin-right: -10px;
+    text-align: center;
+    color: #6b6b6b;
+    font-size: 15px;
+    font-family: sans-serif;
+    border-radius: 0;
+    border-color: #fff
+}
+
+.labelTarjetas {
+    font-size: 18px;
+    font-family: 'FS-Joey';
+    font-weight: 700;
+    color: #333
+}
+
+.labelTarjetasCuentasBancarias {
+    font-size: 28px;
+    font-family: 'FS-Joey';
+    color: #333
+}
+
+.eliminar {
+    cursor: pointer;
+    font-size: 13px;
+    color: #333;
+    font-family: 'FS-Joey'
+}
+
+.spanTarjetasCuentasBancarias {
+    font-size: 14px;
+    font-family: sans-serif;
+    color: #868686
+}
+
+.botonAdicionarNuevaCuenta {
+    color: #0097d8
+}
+
+.iconoWarningCuentaNoRegistrada {
+    margin-right: 5px;
+    margin-bottom: 5px
+}
+
+.control-label.required:after {
+    color: #d00;
+    content: "*";
+    position: absolute;
+    margin-left: 5px;
+    top: 3px
+}
+
+.editarInformacion {
+    background: no-repeat padding-box #f0f0F00D;
+    border: .5px solid #8c8e8e;
+    border-radius: 4px;
+    opacity: 1;
+    width: 39%;
+    margin-left: 30%;
+    padding: 20px;
+    text-align: center
+}
+
+.bancoEditarInformacion {
+    font-size: 20px;
+    color: #333;
+    font-family: sans-serif;
+    margin-left: 10px
+}
+
+.tituloEditarInformacion {
+    font-size: 14px;
+    color: #868686;
+    font-family: sans-serif
+}
+
+.resultadoEditarInformacion {
+    font-size: 28px;
+    color: #333;
+    font-family: 'FS-Joey'
+}
