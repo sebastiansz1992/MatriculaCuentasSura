@@ -11,13 +11,9 @@ export class CrearCuentaService {
 
     ) { }
 
-  crearMatriculaCuenta(/*url: string, params: object, options: object*/) {
+  crearMatriculaCuenta(url: string, params: any, headers: any) {
 
-    return this.HTTP.post('https://0i4q4gcam9.execute-api.us-east-1.amazonaws.com/MatriculaCuentas/matricula-de-cuentas/crear-cuenta', {params: {
-      title: 'foo',
-      body: 'bar',
-      userId: 1
-    }});
+    return this.HTTP.post(url, JSON.stringify(params));
 
   }
 }

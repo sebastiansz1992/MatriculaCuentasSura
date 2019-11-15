@@ -11,4 +11,7 @@ export const URLCONSULTARMATRICULACUENTAS = 'https://0i4q4gcam9.execute-api.us-e
 
 /** MOCKS */
 
-export const URLCONSULTARMATRICULACUENTASMOCK = 'https://my-json-server.typicode.com/sebastiansz1992/MocksJsonPublics/cuentasBancarias';
+export const URLBANCOS = 'https://my-json-server.typicode.com/sebastiansz1992/MocksJsonPublics/bancos';
+export const URLCONSULTA = 'https://my-json-server.typicode.com/sebastiansz1992/MocksJsonPublics/consulta';
+export const URLFRANQUICIAS = 'https://my-json-server.typicode.com/sebastiansz1992/MocksJsonPublics/franquicias';
+export const URLGESTION = 'https://my-json-server.typicode.com/sebastiansz1992/MocksJsonPublics/gestion';

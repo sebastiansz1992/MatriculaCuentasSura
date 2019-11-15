@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import Swal, { SweetAlertResult } from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CrearCuentaService } from '../../core/services/crear-cuenta/crear-cuenta.service';
-import { MatriculaCuentas, PruebaCuentasBancarias } from '../../core/models/matriculaCuentas';
-import * as global from '../../shared/appConfig';
+import { Cuenta } from '../../core/models/Cuenta';
+import * as appConfig from '../../shared/appConfig';
 
 @Component({
   selector: 'app-registro-cuenta',
@@ -16,7 +16,7 @@ export class RegistroCuentaComponent implements OnInit {
   formsInscripcionCuentas: FormGroup;
   mostrarFormInscripcionCuentas: boolean;
   mostrarInicioInscripcionCuentas: boolean;
-  pruebaPost: PruebaCuentasBancarias;
+  cuenta: Cuenta;
   headers: any;
   banco: string;
 
@@ -36,7 +36,7 @@ export class RegistroCuentaComponent implements OnInit {
       'Content-Type': 'application/json; chartset=UTF-8'
     };
 
-    this.CREARCUENTA.crearMatriculaCuenta(/*global.URLCREARCUENTA, this.pruebaPost, this.headers*/).subscribe( (data) => {
+    this.CREARCUENTA.crearMatriculaCuenta(appConfig.URLGESTION, this.cuenta, this.headers).subscribe( (data) => {
       console.log(data);
     });
 

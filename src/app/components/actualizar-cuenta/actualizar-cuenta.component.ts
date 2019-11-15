@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import Swal, { SweetAlertResult } from 'sweetalert2';
-import { PruebaCuentasBancarias } from '../../core/models/matriculaCuentas';
+import { Cuenta } from '../../core/models/Cuenta';
 import { ActualizarCuentaService } from '../../core/services/actualizar-cuenta/actualizar-cuenta.service';
 import * as appConfig from '../../shared/appConfig';
 import { Subscription } from 'rxjs';
@@ -15,7 +15,7 @@ export class ActualizarCuentaComponent implements OnInit {
 
   /** Variables globales */
   editarInformacionCuentaRegistrada: boolean;
-  pruebaCuentasBancarias: PruebaCuentasBancarias;
+  cuenta: Cuenta;
   actualizarCuentasBancarias: Subscription;
 
   /*****************************************/
@@ -48,15 +48,18 @@ export class ActualizarCuentaComponent implements OnInit {
 
     const id: string = this.ROUTE.snapshot.params.id;
 
-    this.actualizarCuentasBancarias = this.ACTUALIZARCUENTAS.actualizarMatriculaCuenta(appConfig.URLCONSULTARMATRICULACUENTASMOCK, id).subscribe( ( data ) => {
+    this.actualizarCuentasBancarias = this.ACTUALIZARCUENTAS.actualizarMatriculaCuenta(appConfig.URLGESTION, id).subscribe( ( data ) => {
       console.log(data);
 
       data.forEach( value =>
-        this.pruebaCuentasBancarias = {
+        this.cuenta = {
           id: value.id,
-          nombreBanco: value.nombreBanco,
+          tipoDocumento: value.country,
+          numeroDocumento: value.numeroCuenta,
+          banco: value.tipoCuenta,
           numeroCuenta: value.numeroCuenta,
-          tipoCuenta: value.tipoCuenta
+          tipoCuenta: value.tipoCuenta,
+          productoAsociado: value.productoAsociado
         }
       );
 
@@ -66,7 +69,7 @@ export class ActualizarCuentaComponent implements OnInit {
 
   actualizarCuentaRegistrada() {
 
-    console.log(this.pruebaCuentasBancarias);
+    console.log(this.cuenta);
 
     Swal.fire({
       html: `<div class="container">

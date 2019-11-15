@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { PruebaCuentasBancarias } from '../../models/matriculaCuentas';
 import { Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +12,12 @@ export class ConsultarCuentasService {
     private HTTP: HttpClient
     ) { }
 
-  consultarMatriculaCuentas(url: string): Observable<PruebaCuentasBancarias[]> {
-    return this.HTTP.get<PruebaCuentasBancarias[]>(url);
+  consultarMatriculaCuentas(url: string) {
+
+    return this.HTTP.get(url).pipe(
+      map(result => result['listAccounts'])
+    );
+
   }
 
 }

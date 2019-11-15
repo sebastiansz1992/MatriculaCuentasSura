@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import Swal, { SweetAlertResult } from 'sweetalert2';
 import { ConsultarCuentasService } from '../../core/services/consultar-cuentas/consultar-cuentas.service';
-import { MatriculaCuentas, PruebaCuentasBancarias } from '../../core/models/matriculaCuentas';
+import { Cuenta } from '../../core/models/Cuenta';
 import * as appConfig from '../../shared/appConfig';
 import { Subscription } from 'rxjs';
 
@@ -14,9 +14,8 @@ export class CuentasRegistradasComponent implements OnInit, OnDestroy {
   /** Variables globales */
   mostrarInicioInscripcionCuentas: boolean;
   noTieneCuentasRegistradas: boolean;
-  cuentasRegistradas: Subscription;
-  pruebaCuentasBancarias: Array<PruebaCuentasBancarias> = [];
-  error: boolean;
+  cuentasRegistradasUsuario: Subscription;
+  cuentasBancarias: Array<Cuenta> = [];
 
   /*****************************************/
 
@@ -37,18 +36,19 @@ export class CuentasRegistradasComponent implements OnInit, OnDestroy {
 
   consultarCuentasRegistradas() {
 
-    this.error = false;
-
-    this.cuentasRegistradas = this.CONSULTARCUENTAS.consultarMatriculaCuentas(appConfig.URLCONSULTARMATRICULACUENTASMOCK).subscribe(
+    this.cuentasRegistradasUsuario = this.CONSULTARCUENTAS.consultarMatriculaCuentas(appConfig.URLCONSULTA).subscribe(
       data => {
         if (data) {
 
-          data.forEach( value =>
-            this.pruebaCuentasBancarias.push({
-              id: value.id,
-              nombreBanco: value.nombreBanco,
-              tipoCuenta: value.tipoCuenta,
-              numeroCuenta: value.numeroCuenta
+          data.forEach( ( value, index ) =>
+            this.cuentasBancarias.push({
+              id: index,
+              tipoDocumento: value.docTypeAccountHolder,
+              numeroDocumento: value.docAccountHolder,
+              banco: value.bank,
+              numeroCuenta: value.account,
+              tipoCuenta: value.accountType,
+              productoAsociado: value.listProducts
             })
           );
 
@@ -94,7 +94,7 @@ export class CuentasRegistradasComponent implements OnInit, OnDestroy {
   /** Destructor de peticiones observables para liberación de memoria */
 
   ngOnDestroy() {
-    this.cuentasRegistradas.unsubscribe();
+    this.cuentasRegistradasUsuario.unsubscribe();
   }
 
   /**********************************************************/

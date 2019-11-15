@@ -13,13 +13,13 @@
     </div>
     <br>
     <div class="row form-group">
-        <div *ngFor="let cuenta of pruebaCuentasBancarias" class="tarjetasCuentasBancarias" style="margin-top: 10px;">
+        <div *ngFor="let cuenta of cuentasBancarias" class="tarjetasCuentasBancarias" style="margin-top: 10px;">
             <div class="row">
                 <div class="col-md-8">
-                    <img src="assets/images/logobancos/bancolombia.png" alt="Icono Bancolombia"><label for="" class="labelTarjetas" style="padding-left: 10px;">{{cuenta.nombreBanco}}</label>
+                    <img src="assets/images/logobancos/bancolombia.png" alt="Icono Bancolombia"><label for="" class="labelTarjetas" style="padding-left: 10px;">{{cuenta.banco}}</label>
                 </div>
                 <div class="col-md-4">
-                    <u class="eliminar" (click)="eliminarCuentaRegistrada()">Eliminar</u><i class=" fa fa-trash-o " aria-hidden="true " style="padding-left: 5px; "></i>
+                    <u class="eliminar" (click)="eliminarCuentaRegistrada()">Eliminar</u><em class=" fa fa-trash-o " aria-hidden="true " style="padding-left: 5px; "></em>
                 </div>
             </div>
             <div class="row">
@@ -29,7 +29,7 @@
             </div>
             <div class="row">
                 <div class="col-md-6 ">
-                    <label for=" " class="labelTarjetasCuentasBancarias ">{{cuenta.numeroCuenta}}</label>
+                    <label for=" " class="labelTarjetasCuentasBancarias ">****{{cuenta.numeroCuenta | slice: -5}}</label>
                 </div>
                 <div class="col-md-6" style="text-align: right;">
                     <button type="button" class="btn btn-primary" [routerLink]="['/actualizarCuenta', cuenta.id]">EDITAR</button>
