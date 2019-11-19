@@ -1,31 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import Swal, { SweetAlertResult } from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CrearCuentaService } from '../../core/services/crear-cuenta/crear-cuenta.service';
-import { Cuenta } from '../../core/models/Cuenta';
+import { ConsultarCuentasService } from '../../core/services/consultar-cuentas/consultar-cuentas.service';
+import { Cuenta } from '../../core/models/cuenta';
 import * as appConfig from '../../shared/appConfig';
+import { Banco } from '../../core/models/banco';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-registro-cuenta',
   templateUrl: './registro-cuenta.component.html',
-  providers: [CrearCuentaService]
+  providers: [CrearCuentaService, ConsultarCuentasService]
 })
-export class RegistroCuentaComponent implements OnInit {
+export class RegistroCuentaComponent implements OnInit, OnDestroy {
 
   /** Variables globales */
   formsInscripcionCuentas: FormGroup;
   mostrarFormInscripcionCuentas: boolean;
   mostrarInicioInscripcionCuentas: boolean;
-  cuenta: Cuenta;
+  listaBancos: Subscription;
+  registroCuenta: Cuenta;
+  bancos: Array<Banco> = [];
   headers: any;
-  banco: string;
+  paises: any;
 
   /*****************************************/
 
   /** Constructor ( Realiza cargas antes del page load ) */
   constructor(
     private FORMBUILDER: FormBuilder,
-    private CREARCUENTA: CrearCuentaService
+    private CREARCUENTA: CrearCuentaService,
+    private CONSULTARCUENTAS: ConsultarCuentasService
   ) {
 
     this.mostrarFormInscripcionCuentas = true;
@@ -36,7 +42,7 @@ export class RegistroCuentaComponent implements OnInit {
       'Content-Type': 'application/json; chartset=UTF-8'
     };
 
-    this.CREARCUENTA.crearMatriculaCuenta(appConfig.URLGESTION, this.cuenta, this.headers).subscribe( (data) => {
+    this.CREARCUENTA.crearMatriculaCuenta(appConfig.URLGESTION, this.registroCuenta, this.headers).subscribe( (data) => {
       console.log(data);
     });
 
@@ -48,10 +54,41 @@ export class RegistroCuentaComponent implements OnInit {
   ngOnInit() {
 
     this.validarCamposObligatorios();
+    this.cargarListaBancos();
 
   }
 
   /** Metodos personalizados para el componente */
+
+  cargarListaBancos() {
+
+    this.listaBancos = this.CONSULTARCUENTAS.consultarMatriculaCuentas(appConfig.URLBANCOS).subscribe(
+      data => {
+
+        if (data) {
+
+          data['listBank'].forEach( ( value, index ) => {
+            this.bancos.push({
+              idPosition: index,
+              id: value.bank,
+              pais: value.country,
+              nombreBanco: value.name
+            });
+          });
+
+          this.bancos = [...this.bancos];
+
+          console.log(this.bancos);
+
+        } else {
+          console.log('No se encontraron bancos.');
+        }
+
+    }, ( errorServicio ) => {
+        console.log(errorServicio);
+    });
+  }
+
   validarCoincidirContrasenia(controlName: string, matchingControlName: string) {
     return (formGroup: FormGroup) => {
         const control = formGroup.controls[controlName];
@@ -120,7 +157,7 @@ export class RegistroCuentaComponent implements OnInit {
           </div>
           <div class="row">
               <div class="col-md-12">
-                  <span style="color: #6B6B6B;font-size: 22px;font-family:'FS-Joey';font-weight:bold;">${this.banco}</span>
+                  <span style="color: #6B6B6B;font-size: 22px;font-family:'FS-Joey';font-weight:bold;">BANCOLOMBIA</span>
               </div>
           </div>
           <br>
@@ -178,8 +215,15 @@ export class RegistroCuentaComponent implements OnInit {
   }
 
   onChange(event) {
-    this.banco = event.target.options[event.target.options.selectedIndex].text;
-    console.log(event.target.options[event.target.options.selectedIndex].text);
+    console.log(event.nombreBanco);
   }
+
+   /** Destructor de peticiones observables para liberación de memoria */
+
+  ngOnDestroy() {
+    //this.listaBancos.unsubscribe();
+  }
+
+  /**********************************************************/
 
 }

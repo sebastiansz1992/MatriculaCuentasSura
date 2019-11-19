@@ -14,9 +14,7 @@ export class ConsultarCuentasService {
 
   consultarMatriculaCuentas(url: string) {
 
-    return this.HTTP.get(url).pipe(
-      map(result => result['listAccounts'])
-    );
+    return this.HTTP.get(url);
 
   }
 

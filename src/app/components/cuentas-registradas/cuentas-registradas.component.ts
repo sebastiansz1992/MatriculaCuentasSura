@@ -1,13 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import Swal, { SweetAlertResult } from 'sweetalert2';
-import { ConsultarCuentasService } from '../../core/services/consultar-cuentas/consultar-cuentas.service';
-import { Cuenta } from '../../core/models/Cuenta';
-import * as appConfig from '../../shared/appConfig';
-import { Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import Swal, { SweetAlertResult } from "sweetalert2";
+import { ConsultarCuentasService } from "../../core/services/consultar-cuentas/consultar-cuentas.service";
+import { Cuenta } from "../../core/models/cuenta";
+import * as appConfig from "../../shared/appConfig";
+import { Subscription } from "rxjs";
+import { MatriculaCuentasObservableService } from "../../core/services/matricula-cuentas-observable/matricula-cuentas-observable.service";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-cuentas-registradas',
-  templateUrl: './cuentas-registradas.component.html',
+  selector: "app-cuentas-registradas",
+  templateUrl: "./cuentas-registradas.component.html",
   providers: [ConsultarCuentasService]
 })
 export class CuentasRegistradasComponent implements OnInit, OnDestroy {
@@ -20,9 +22,12 @@ export class CuentasRegistradasComponent implements OnInit, OnDestroy {
   /*****************************************/
 
   /** Constructor ( Realiza cargas antes del page load ) */
-  constructor(private CONSULTARCUENTAS: ConsultarCuentasService) {
+  constructor(
+    private CONSULTARCUENTAS: ConsultarCuentasService,
+    private SHAREDDATA: MatriculaCuentasObservableService,
+    private ROUTE: Router
+  ) {
     this.consultarCuentasRegistradas();
-    console.log('Se ha cargado cuentas registradas exitosamente');
   }
 
   /*****************************************/
@@ -35,12 +40,12 @@ export class CuentasRegistradasComponent implements OnInit, OnDestroy {
   /** Metodos personalizados para el componente */
 
   consultarCuentasRegistradas() {
-
-    this.cuentasRegistradasUsuario = this.CONSULTARCUENTAS.consultarMatriculaCuentas(appConfig.URLCONSULTA).subscribe(
+    this.cuentasRegistradasUsuario = this.CONSULTARCUENTAS.consultarMatriculaCuentas(
+      appConfig.URLCONSULTA
+    ).subscribe(
       data => {
         if (data) {
-
-          data.forEach( ( value, index ) =>
+          data['listAccounts'].forEach((value, index) =>
             this.cuentasBancarias.push({
               id: index,
               tipoDocumento: value.docTypeAccountHolder,
@@ -52,38 +57,37 @@ export class CuentasRegistradasComponent implements OnInit, OnDestroy {
             })
           );
 
+          this.SHAREDDATA.actualizarMatriculaCuentas(this.cuentasBancarias);
           this.mostrarInicioInscripcionCuentas = true;
-
         } else {
-
           this.noTieneCuentasRegistradas = true;
-
         }
-
-      }, ( errorServicio ) => {
-          console.log(`Este es el error desde el ts del componente: ${errorServicio}`);
-          console.log(errorServicio.message);
+      },
+      errorServicio => {
+        console.log(
+          `Este es el error desde el ts del componente: ${errorServicio}`
+        );
+        console.log(errorServicio.message);
       }
     );
-
   }
 
   eliminarCuentaRegistrada() {
     Swal.fire({
-      title: '¿Seguro quieres eliminar esta cuenta?',
-      type: 'warning',
+      title: "¿Seguro quieres eliminar esta cuenta?",
+      type: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#0097D8',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'ELIMINAR CUENTA!',
-      cancelButtonText: 'Cancelar',
+      confirmButtonColor: "#0097D8",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "ELIMINAR CUENTA!",
+      cancelButtonText: "Cancelar",
       reverseButtons: true
     }).then(result => {
       if (result.value) {
         Swal.fire(
-          'Eliminada!',
-          'Su cuenta registrada ha sido eliminada exitosamente.',
-          'success'
+          "Eliminada!",
+          "Su cuenta registrada ha sido eliminada exitosamente.",
+          "success"
         );
       }
     });

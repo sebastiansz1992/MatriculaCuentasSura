@@ -1,22 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import Swal, { SweetAlertResult } from 'sweetalert2';
-import { Cuenta } from '../../core/models/Cuenta';
-import { ActualizarCuentaService } from '../../core/services/actualizar-cuenta/actualizar-cuenta.service';
-import * as appConfig from '../../shared/appConfig';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import Swal, { SweetAlertResult } from "sweetalert2";
+import { Cuenta } from "../../core/models/cuenta";
+import { ActualizarCuentaService } from "../../core/services/actualizar-cuenta/actualizar-cuenta.service";
+import * as appConfig from "../../shared/appConfig";
+import { Subscription } from "rxjs";
+import { MatriculaCuentasObservableService } from "../../core/services/matricula-cuentas-observable/matricula-cuentas-observable.service";
+import { filter } from "rxjs/operators";
 
 @Component({
-  selector: 'app-actualizar-cuenta',
-  templateUrl: './actualizar-cuenta.component.html',
+  selector: "app-actualizar-cuenta",
+  templateUrl: "./actualizar-cuenta.component.html",
   providers: [ActualizarCuentaService]
 })
 export class ActualizarCuentaComponent implements OnInit {
-
   /** Variables globales */
   editarInformacionCuentaRegistrada: boolean;
   cuenta: Cuenta;
   actualizarCuentasBancarias: Subscription;
+  cuentaEditar: any;
 
   /*****************************************/
 
@@ -24,51 +26,50 @@ export class ActualizarCuentaComponent implements OnInit {
 
   constructor(
     private ACTUALIZARCUENTAS: ActualizarCuentaService,
-    private ROUTE: ActivatedRoute
-     ) {
+    private ACTIVEROUTE: ActivatedRoute,
+    private ROUTE: Router,
+    private SHAREDDATA: MatriculaCuentasObservableService
+  ) {
+    console.log("Se cargo actualizar cuenta");
     this.editarInformacionCuentaRegistrada = true;
     this.consultarCuentaActualizar();
-    console.log('Se cargo actualizar cuenta');
-   }
+  }
 
   /*****************************************/
 
-
   /** Realiza cargas despúes del page load */
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   /*****************************************/
 
   /** Metodos personalizados para el componente */
 
   consultarCuentaActualizar() {
+    const id: string = this.ACTIVEROUTE.snapshot.params.id;
 
-    const id: string = this.ROUTE.snapshot.params.id;
-
-    this.actualizarCuentasBancarias = this.ACTUALIZARCUENTAS.actualizarMatriculaCuenta(appConfig.URLGESTION, id).subscribe( ( data ) => {
-      console.log(data);
-
-      data.forEach( value =>
-        this.cuenta = {
-          id: value.id,
-          tipoDocumento: value.country,
-          numeroDocumento: value.numeroCuenta,
-          banco: value.tipoCuenta,
-          numeroCuenta: value.numeroCuenta,
-          tipoCuenta: value.tipoCuenta,
-          productoAsociado: value.productoAsociado
+    this.SHAREDDATA.cuentaUsuario.subscribe(
+      cuenta => {
+        if (cuenta) {
+          this.cuentaEditar = cuenta.filter(c => c.id.toString() === id);
+          this.cuenta = {
+            id: this.cuentaEditar[0].id,
+            tipoDocumento: this.cuentaEditar[0].tipoDocumento,
+            numeroDocumento: this.cuentaEditar[0].numeroDocumento,
+            tipoCuenta: this.cuentaEditar[0].tipoCuenta,
+            numeroCuenta: this.cuentaEditar[0].numeroCuenta,
+            banco: this.cuentaEditar[0].banco,
+            productoAsociado: this.cuentaEditar[0].productoAsociado
+          };
+        } else {
+          this.ROUTE.navigate(["/cuentasRegistradas"]);
         }
-      );
-
-    }, error => console.log(error));
-
+      },
+      error => console.log(error)
+    );
   }
 
   actualizarCuentaRegistrada() {
-
     console.log(this.cuenta);
 
     Swal.fire({
@@ -123,20 +124,20 @@ export class ActualizarCuentaComponent implements OnInit {
   </div>`,
       showCancelButton: true,
       showCloseButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      cancelButtonText: 'Editar datos',
-      confirmButtonText: 'GUARDAR',
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "Editar datos",
+      confirmButtonText: "GUARDAR",
       allowOutsideClick: false
-    }).then((result) => {
+    }).then(result => {
       if (result.value) {
         this.editarInformacionCuentaRegistrada = true;
         Swal.fire({
-          text: '¡Tu cuenta ha sido registrada correctamente!',
-          type: 'success',
-          confirmButtonColor: '#3085d6',
-          confirmButtonText: 'ENTENDIDO'
-        }).then(( resultado: SweetAlertResult) => {
+          text: "¡Tu cuenta ha sido registrada correctamente!",
+          type: "success",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "ENTENDIDO"
+        }).then((resultado: SweetAlertResult) => {
           if (resultado.value) {
             this.editarInformacionCuentaRegistrada = true;
           }
@@ -146,5 +147,4 @@ export class ActualizarCuentaComponent implements OnInit {
       }
     });
   }
-
 }

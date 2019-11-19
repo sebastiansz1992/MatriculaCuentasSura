@@ -1,17 +1,15 @@
 <!-- Pantalla para editar información de una cuenta registada -->
-
 <div class="container">
     <div class="row titulosSeccion">
         <div class="col-md-12">
             <span>Editar información</span>
         </div>
     </div>
-    <div class="row editarInformacion">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
+    <div class="editarInformacion">
+        <div class="col-md-12">
             <div class="row">
                 <div class="col-md-12">
-                    <img src="assets/images/logobancos/bancolombia.png" alt="Icono Bancolombia"><span class="bancoEditarInformacion">{{pruebaCuentasBancarias.nombreBanco}}</span>
+                    <img src="assets/images/logobancos/bancolombia.png" alt="Icono Bancolombia"><span class="bancoEditarInformacion">{{cuenta.banco}}</span>
                 </div>
             </div>
             <div class="row">
@@ -21,7 +19,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <span class="resultadoEditarInformacion">{{pruebaCuentasBancarias.numeroCuenta}}</span>
+                    <span class="resultadoEditarInformacion">{{cuenta.numeroCuenta}}</span>
                 </div>
             </div>
             <div class="row">
@@ -31,7 +29,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <span class="resultadoEditarInformacion">{{pruebaCuentasBancarias.tipoCuenta}}</span>
+                    <span class="resultadoEditarInformacion">{{cuenta.tipoCuenta}}</span>
                 </div>
             </div>
         </div>

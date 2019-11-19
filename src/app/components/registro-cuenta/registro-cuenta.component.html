@@ -46,13 +46,8 @@
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 <label class="labelsLetra control-label required" for="listaBancos">Banco</label>
-                <select (change)="onChange($event)" name="Lista de bancos" id="listaBancos" class="form-control letraInputs" formControlName="listaBancos">
-                        <option [value]="null">Selecciona la entidad bancaria</option>
-                        <option [value]="1">Bancolombia</option>
-                        <option [value]="2">Bbva</option>
-                        <option [value]="3">AV Villas</option>
-                        <option [value]="4">Colpatria</option>
-                </select>
+                <ng-select (change)="onChange($event)" [items]="bancos" bindLabel="nombreBanco" bindValue="id" placeholder="Seleccione la entidad bancaria" groupBy="pais" formControlName="listaBancos" name="Lista de bancos" id="listaBancos">
+                </ng-select>
                 <div *ngIf="formsInscripcionCuentas.get('listaBancos').invalid && (formsInscripcionCuentas.get('listaBancos').dirty || formsInscripcionCuentas.get('listaBancos').touched)" class="alert alert-danger" style="margin-top: 5px;">
                     <span>Debe seleccionar una entidad financiera!</span>
                 </div>

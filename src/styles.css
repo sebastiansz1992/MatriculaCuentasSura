@@ -208,7 +208,7 @@
 
 .eliminar {
     cursor: pointer;
-    font-size: 13px;
+    font-size: 15px;
     color: #333;
     font-family: 'FS-Joey'
 }
@@ -242,7 +242,7 @@
     border-radius: 4px;
     opacity: 1;
     width: 39%;
-    margin-left: 30%;
+    margin-left: 32%;
     padding: 20px;
     text-align: center
 }
