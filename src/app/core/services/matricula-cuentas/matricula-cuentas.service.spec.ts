@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 
-import { MatriculaCuentasService } from './consultar-cuentas.service';
+import { MatriculaCuentasService } from './matricula-cuentas.service';
 
-describe('ConsultarCuentasService', () => {
+describe('MatriculaCuentasService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {

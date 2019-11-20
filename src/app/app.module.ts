@@ -8,7 +8,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { createCustomElement } from "@angular/elements";
 
 /** SERVICIOS */
-import { MatriculaCuentasObservableService } from "./core/services/matricula-cuentas-observable/matricula-cuentas-observable.service";
+import { MatriculaCuentasService } from "./core/services/matricula-cuentas/matricula-cuentas.service";
 
 /** COMPONENTES */
 import { RegistroCuentaComponent } from "./components/registro-cuenta/registro-cuenta.component";
@@ -16,6 +16,7 @@ import { CuentasRegistradasComponent } from "./components/cuentas-registradas/cu
 import { ActualizarCuentaComponent } from "./components/actualizar-cuenta/actualizar-cuenta.component";
 import { AppComponent } from "./app.component";
 import { LoadingComponent } from "./shared/loading/loading/loading.component";
+
 
 @NgModule({
   declarations: [
@@ -34,14 +35,12 @@ import { LoadingComponent } from "./shared/loading/loading/loading.component";
     AppRoutingModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [MatriculaCuentasObservableService],
-  // bootstrap: [AppComponent],
+  providers: [MatriculaCuentasService],
+  //bootstrap: [AppComponent],
   entryComponents: [AppComponent]
 })
 export class AppModule {
-  constructor(private injector: Injector) {
-
-  }
+  constructor(private injector: Injector) {}
 
   ngDoBootstrap() {
     const componenteInscripcionCuentas = createCustomElement(AppComponent, {

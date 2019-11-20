@@ -9,6 +9,8 @@ export const URLCONSULTARMATRICULACUENTAS = "https://0i4q4gcam9.execute-api.us-e
 
 /** DESARROLLO */
 
+export const URLBANCOSMN = "http://localhost:8080/bancos";
+
 /** MOCKS */
 
 export const URLBANCOS = "https://my-json-server.typicode.com/sebastiansz1992/MocksJsonPublics/bancos";

@@ -1,20 +1,17 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import Swal, { SweetAlertResult } from 'sweetalert2';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CrearCuentaService } from '../../core/services/crear-cuenta/crear-cuenta.service';
-import { ConsultarCuentasService } from '../../core/services/consultar-cuentas/consultar-cuentas.service';
-import { Cuenta } from '../../core/models/cuenta';
-import * as appConfig from '../../shared/appConfig';
-import { Banco } from '../../core/models/banco';
-import { Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import Swal, { SweetAlertResult } from "sweetalert2";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { Cuenta } from "../../core/models/cuenta";
+import * as appConfig from "../../shared/appConfig";
+import { Banco } from "../../core/models/banco";
+import { Subscription } from "rxjs";
+import { MatriculaCuentasService } from "../../core/services/matricula-cuentas/matricula-cuentas.service";
 
 @Component({
-  selector: 'app-registro-cuenta',
-  templateUrl: './registro-cuenta.component.html',
-  providers: [CrearCuentaService, ConsultarCuentasService]
+  selector: "app-registro-cuenta",
+  templateUrl: "./registro-cuenta.component.html"
 })
 export class RegistroCuentaComponent implements OnInit, OnDestroy {
-
   /** Variables globales */
   formsInscripcionCuentas: FormGroup;
   mostrarFormInscripcionCuentas: boolean;
@@ -30,44 +27,42 @@ export class RegistroCuentaComponent implements OnInit, OnDestroy {
   /** Constructor ( Realiza cargas antes del page load ) */
   constructor(
     private FORMBUILDER: FormBuilder,
-    private CREARCUENTA: CrearCuentaService,
-    private CONSULTARCUENTAS: ConsultarCuentasService
+    private MATRICULACUENTASERVICES: MatriculaCuentasService
   ) {
-
     this.mostrarFormInscripcionCuentas = true;
     this.mostrarInicioInscripcionCuentas = true;
-    console.log('Se cargo registro cuenta');
+    console.log("Se cargo registro cuenta");
 
     this.headers = {
-      'Content-Type': 'application/json; chartset=UTF-8'
+      "Content-Type": "application/json; chartset=UTF-8"
     };
 
-    this.CREARCUENTA.crearMatriculaCuenta(appConfig.URLGESTION, this.registroCuenta, this.headers).subscribe( (data) => {
+    this.MATRICULACUENTASERVICES.crearMatriculaCuenta(
+      appConfig.URLGESTION,
+      this.registroCuenta,
+      this.headers
+    ).subscribe(data => {
       console.log(data);
     });
-
   }
 
   /*****************************************************/
 
-   /** Realiza cargas despúes del page load */
+  /** Realiza cargas despúes del page load */
   ngOnInit() {
-
     this.validarCamposObligatorios();
     this.cargarListaBancos();
-
   }
 
   /** Metodos personalizados para el componente */
 
   cargarListaBancos() {
-
-    this.listaBancos = this.CONSULTARCUENTAS.consultarMatriculaCuentas(appConfig.URLBANCOS).subscribe(
+    this.listaBancos = this.MATRICULACUENTASERVICES.consultarMatriculaCuentas(
+      appConfig.URLBANCOS
+    ).subscribe(
       data => {
-
         if (data) {
-
-          data['listBank'].forEach( ( value, index ) => {
+          data["listBank"].forEach((value, index) => {
             this.bancos.push({
               idPosition: index,
               id: value.bank,
@@ -79,39 +74,40 @@ export class RegistroCuentaComponent implements OnInit, OnDestroy {
           this.bancos = [...this.bancos];
 
           console.log(this.bancos);
-
         } else {
-          console.log('No se encontraron bancos.');
+          console.log("No se encontraron bancos.");
         }
-
-    }, ( errorServicio ) => {
+      },
+      errorServicio => {
         console.log(errorServicio);
-    });
+      }
+    );
   }
 
-  validarCoincidirContrasenia(controlName: string, matchingControlName: string) {
+  validarCoincidirContrasenia(
+    controlName: string,
+    matchingControlName: string
+  ) {
     return (formGroup: FormGroup) => {
-        const control = formGroup.controls[controlName];
-        const matchingControl = formGroup.controls[matchingControlName];
+      const control = formGroup.controls[controlName];
+      const matchingControl = formGroup.controls[matchingControlName];
 
-        if (matchingControl.errors && !matchingControl.errors.mustMatch) {
-            // return if another validator has already found an error on the matchingControl
-            return;
-        }
+      if (matchingControl.errors && !matchingControl.errors.mustMatch) {
+        // return if another validator has already found an error on the matchingControl
+        return;
+      }
 
-        // set error on matchingControl if validation fails
-        if (control.value !== matchingControl.value) {
-            matchingControl.setErrors({ mustMatch: true });
-        } else {
-            matchingControl.setErrors(null);
-        }
+      // set error on matchingControl if validation fails
+      if (control.value !== matchingControl.value) {
+        matchingControl.setErrors({ mustMatch: true });
+      } else {
+        matchingControl.setErrors(null);
+      }
     };
   }
 
   validarCamposObligatorios() {
-
     this.formsInscripcionCuentas = this.FORMBUILDER.group({
-
       tipoDocumento: [null, [Validators.required]],
       numeroDocumento: [null, [Validators.required]],
       numeroCuenta: [null, [Validators.required]],
@@ -121,19 +117,14 @@ export class RegistroCuentaComponent implements OnInit, OnDestroy {
       devolucionAportes: [false, [Validators.required]],
       prestacionEconomica: [false, [Validators.required]],
       terminosCondiciones: [false, [Validators.required]]
-
     });
-
   }
 
-  inscribirCuenta( inscribir: string ) {
-
-    console.log('formsInscripcionCuentas', this.formsInscripcionCuentas.value);
-    if ( inscribir === 'inscribir' ) {
-
+  inscribirCuenta(inscribir: string) {
+    console.log("formsInscripcionCuentas", this.formsInscripcionCuentas.value);
+    if (inscribir === "inscribir") {
       this.mostrarFormInscripcionCuentas = false;
       this.mostrarInicioInscripcionCuentas = true;
-
     } else {
       Swal.fire({
         html: `<div class="container">
@@ -168,7 +159,11 @@ export class RegistroCuentaComponent implements OnInit, OnDestroy {
           </div>
           <div class="row">
               <div class="col-md-12">
-                  <span style="color: #6B6B6B;font-size: 22px;font-family:'FS-Joey';font-weight:bold;">${this.formsInscripcionCuentas.controls.cuenta.value} ${this.formsInscripcionCuentas.controls.numeroCuenta.value}</span>
+                  <span style="color: #6B6B6B;font-size: 22px;font-family:'FS-Joey';font-weight:bold;">${
+                    this.formsInscripcionCuentas.controls.cuenta.value
+                  } ${
+          this.formsInscripcionCuentas.controls.numeroCuenta.value
+        }</span>
               </div>
           </div>
           <br>
@@ -179,7 +174,12 @@ export class RegistroCuentaComponent implements OnInit, OnDestroy {
           </div>
           <div class="row">
               <div class="col-md-12">
-                  <span style="color: #6B6B6B;font-size: 22px;font-family:'FS-Joey';font-weight:bold;">${this.formsInscripcionCuentas.controls.devolucionAportes.value ? 'Devolución de aportes' : 'Prestaciones económicas'}</span>
+                  <span style="color: #6B6B6B;font-size: 22px;font-family:'FS-Joey';font-weight:bold;">${
+                    this.formsInscripcionCuentas.controls.devolucionAportes
+                      .value
+                      ? "Devolución de aportes"
+                      : "Prestaciones económicas"
+                  }</span>
               </div>
           </div>
           <br>
@@ -187,21 +187,20 @@ export class RegistroCuentaComponent implements OnInit, OnDestroy {
     </div>`,
         showCancelButton: true,
         showCloseButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        cancelButtonText: 'Editar datos',
-        confirmButtonText: 'GUARDAR',
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        cancelButtonText: "Editar datos",
+        confirmButtonText: "GUARDAR",
         allowOutsideClick: false
-      }).then((result) => {
+      }).then(result => {
         if (result.value) {
-
           this.mostrarFormInscripcionCuentas = true;
           Swal.fire({
-            text: '¡Tu cuenta ha sido registrada correctamente!',
-            type: 'success',
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'ENTENDIDO'
-          }).then(( resultado: SweetAlertResult) => {
+            text: "¡Tu cuenta ha sido registrada correctamente!",
+            type: "success",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "ENTENDIDO"
+          }).then((resultado: SweetAlertResult) => {
             if (resultado.value) {
               this.mostrarFormInscripcionCuentas = true;
               this.mostrarInicioInscripcionCuentas = false;
@@ -218,12 +217,11 @@ export class RegistroCuentaComponent implements OnInit, OnDestroy {
     console.log(event.nombreBanco);
   }
 
-   /** Destructor de peticiones observables para liberación de memoria */
+  /** Destructor de peticiones observables para liberación de memoria */
 
   ngOnDestroy() {
-    //this.listaBancos.unsubscribe();
+    // this.listaBancos.unsubscribe();
   }
 
   /**********************************************************/
-
 }

@@ -1,16 +1,15 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import Swal, { SweetAlertResult } from "sweetalert2";
-import { ConsultarCuentasService } from "../../core/services/consultar-cuentas/consultar-cuentas.service";
 import { Cuenta } from "../../core/models/cuenta";
 import * as appConfig from "../../shared/appConfig";
 import { Subscription } from "rxjs";
 import { MatriculaCuentasObservableService } from "../../core/services/matricula-cuentas-observable/matricula-cuentas-observable.service";
 import { Router } from "@angular/router";
+import { MatriculaCuentasService } from "../../core/services/matricula-cuentas/matricula-cuentas.service";
 
 @Component({
   selector: "app-cuentas-registradas",
-  templateUrl: "./cuentas-registradas.component.html",
-  providers: [ConsultarCuentasService]
+  templateUrl: "./cuentas-registradas.component.html"
 })
 export class CuentasRegistradasComponent implements OnInit, OnDestroy {
   /** Variables globales */
@@ -23,11 +22,12 @@ export class CuentasRegistradasComponent implements OnInit, OnDestroy {
 
   /** Constructor ( Realiza cargas antes del page load ) */
   constructor(
-    private CONSULTARCUENTAS: ConsultarCuentasService,
+    private MATRICULACUENTASSERVICES: MatriculaCuentasService,
     private SHAREDDATA: MatriculaCuentasObservableService,
     private ROUTE: Router
   ) {
     this.consultarCuentasRegistradas();
+    this.consultarBancos();
   }
 
   /*****************************************/
@@ -39,13 +39,21 @@ export class CuentasRegistradasComponent implements OnInit, OnDestroy {
 
   /** Metodos personalizados para el componente */
 
+  consultarBancos() {
+    this.cuentasRegistradasUsuario = this.MATRICULACUENTASSERVICES.consultarMatriculaCuentasMN(appConfig.URLBANCOSMN)
+      .subscribe( data => {
+        console.log(data);
+      });
+  }
+
   consultarCuentasRegistradas() {
-    this.cuentasRegistradasUsuario = this.CONSULTARCUENTAS.consultarMatriculaCuentas(
+    this.cuentasRegistradasUsuario = this.MATRICULACUENTASSERVICES.consultarMatriculaCuentas(
       appConfig.URLCONSULTA
     ).subscribe(
       data => {
+        console.log(data);
         if (data) {
-          data['listAccounts'].forEach((value, index) =>
+          data["listAccounts"].forEach((value, index) =>
             this.cuentasBancarias.push({
               id: index,
               tipoDocumento: value.docTypeAccountHolder,

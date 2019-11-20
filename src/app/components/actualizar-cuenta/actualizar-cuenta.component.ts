@@ -2,16 +2,15 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import Swal, { SweetAlertResult } from "sweetalert2";
 import { Cuenta } from "../../core/models/cuenta";
-import { ActualizarCuentaService } from "../../core/services/actualizar-cuenta/actualizar-cuenta.service";
 import * as appConfig from "../../shared/appConfig";
 import { Subscription } from "rxjs";
 import { MatriculaCuentasObservableService } from "../../core/services/matricula-cuentas-observable/matricula-cuentas-observable.service";
 import { filter } from "rxjs/operators";
+import { MatriculaCuentasService } from "../../core/services/matricula-cuentas/matricula-cuentas.service";
 
 @Component({
   selector: "app-actualizar-cuenta",
-  templateUrl: "./actualizar-cuenta.component.html",
-  providers: [ActualizarCuentaService]
+  templateUrl: "./actualizar-cuenta.component.html"
 })
 export class ActualizarCuentaComponent implements OnInit {
   /** Variables globales */
@@ -25,7 +24,7 @@ export class ActualizarCuentaComponent implements OnInit {
   /** Constructor ( Realiza cargas antes del page load ) */
 
   constructor(
-    private ACTUALIZARCUENTAS: ActualizarCuentaService,
+    private MATRICULACUENTASERVICES: MatriculaCuentasService,
     private ACTIVEROUTE: ActivatedRoute,
     private ROUTE: Router,
     private SHAREDDATA: MatriculaCuentasObservableService
