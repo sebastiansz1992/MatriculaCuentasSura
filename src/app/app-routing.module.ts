@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { RegistroCuentaComponent } from "./components/registro-cuenta/registro-cuenta.component";
-import { CuentasRegistradasComponent } from "./components/cuentas-registradas/cuentas-registradas.component";
+import { RegistroCuentaComponent } from "./components/registrar-cuenta/registrar-cuenta.component";
+import { CuentasRegistradasComponent } from "./components/consultar-cuenta/consultar-cuenta.component";
 import { ActualizarCuentaComponent } from "./components/actualizar-cuenta/actualizar-cuenta.component";
 
 const ROUTES: Routes = [

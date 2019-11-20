@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { CuentasRegistradasComponent } from './cuentas-registradas.component';
+import { CuentasRegistradasComponent } from "./consultar-cuenta.component";
 
-describe('CuentasRegistradasComponent', () => {
+describe("CuentasRegistradasComponent", () => {
   let component: CuentasRegistradasComponent;
   let fixture: ComponentFixture<CuentasRegistradasComponent>;
 
@@ -19,7 +19,7 @@ describe('CuentasRegistradasComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

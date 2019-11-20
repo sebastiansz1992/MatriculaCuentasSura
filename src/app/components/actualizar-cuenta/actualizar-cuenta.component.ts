@@ -2,10 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import Swal, { SweetAlertResult } from "sweetalert2";
 import { Cuenta } from "../../core/models/cuenta";
-import * as appConfig from "../../shared/appConfig";
 import { Subscription } from "rxjs";
 import { MatriculaCuentasObservableService } from "../../core/services/matricula-cuentas-observable/matricula-cuentas-observable.service";
-import { filter } from "rxjs/operators";
 import { MatriculaCuentasService } from "../../core/services/matricula-cuentas/matricula-cuentas.service";
 
 @Component({

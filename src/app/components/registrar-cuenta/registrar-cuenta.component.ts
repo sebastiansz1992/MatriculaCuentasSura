@@ -8,8 +8,8 @@ import { Subscription } from "rxjs";
 import { MatriculaCuentasService } from "../../core/services/matricula-cuentas/matricula-cuentas.service";
 
 @Component({
-  selector: "app-registro-cuenta",
-  templateUrl: "./registro-cuenta.component.html"
+  selector: "app-registrar-cuenta",
+  templateUrl: "./registrar-cuenta.component.html"
 })
 export class RegistroCuentaComponent implements OnInit, OnDestroy {
   /** Variables globales */

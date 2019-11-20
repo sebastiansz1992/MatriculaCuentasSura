@@ -8,8 +8,8 @@ import { Router } from "@angular/router";
 import { MatriculaCuentasService } from "../../core/services/matricula-cuentas/matricula-cuentas.service";
 
 @Component({
-  selector: "app-cuentas-registradas",
-  templateUrl: "./cuentas-registradas.component.html"
+  selector: "app-consultar-cuenta",
+  templateUrl: "./consultar-cuenta.component.html"
 })
 export class CuentasRegistradasComponent implements OnInit, OnDestroy {
   /** Variables globales */

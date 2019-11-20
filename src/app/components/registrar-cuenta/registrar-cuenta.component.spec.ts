@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { RegistroCuentaComponent } from './registro-cuenta.component';
+import { RegistroCuentaComponent } from "./registrar-cuenta.component";
 
-describe('RegistroCuentaComponent', () => {
+describe("RegistroCuentaComponent", () => {
   let component: RegistroCuentaComponent;
   let fixture: ComponentFixture<RegistroCuentaComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RegistroCuentaComponent ]
-    })
-    .compileComponents();
+      declarations: [RegistroCuentaComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('RegistroCuentaComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });
