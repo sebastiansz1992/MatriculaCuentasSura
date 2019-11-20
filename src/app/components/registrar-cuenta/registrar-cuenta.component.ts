@@ -12,6 +12,7 @@ import { MatriculaCuentasService } from "../../core/services/matricula-cuentas/m
   templateUrl: "./registrar-cuenta.component.html"
 })
 export class RegistroCuentaComponent implements OnInit, OnDestroy {
+
   /** Variables globales */
   formsInscripcionCuentas: FormGroup;
   mostrarFormInscripcionCuentas: boolean;
@@ -220,7 +221,7 @@ export class RegistroCuentaComponent implements OnInit, OnDestroy {
   /** Destructor de peticiones observables para liberación de memoria */
 
   ngOnDestroy() {
-    // this.listaBancos.unsubscribe();
+    this.listaBancos.unsubscribe();
   }
 
   /**********************************************************/
