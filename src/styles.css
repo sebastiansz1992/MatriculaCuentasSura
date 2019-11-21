@@ -150,6 +150,7 @@
         padding: 15px;
         max-width: 100% !important;
         margin-left: 15px !important;
+        margin-right: 15px !important;
         cursor: pointer
     }
     .editarInformacion {
@@ -183,11 +184,11 @@
 }
 
 .mensajeCuentaError {
-    margin-left: 10px;
     margin-right: -10px;
     text-align: center;
     color: #6b6b6b;
     font-size: 15px;
+    width: 100%;
     font-family: sans-serif;
     border-radius: 0;
     border-color: #fff

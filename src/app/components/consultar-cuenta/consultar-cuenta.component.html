@@ -15,23 +15,23 @@
     <div class="row form-group">
         <div *ngFor="let cuenta of cuentasBancarias" class="tarjetasCuentasBancarias" style="margin-top: 10px;">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-8">
                     <img src="assets/images/logobancos/bancolombia.png" alt="Icono Bancolombia"><label for="" class="labelTarjetas" style="padding-left: 10px;">{{cuenta.banco}}</label>
                 </div>
-                <div class="col-md-4">
+                <div class="col-4">
                     <u class="eliminar" (click)="eliminarCuentaRegistrada()">Eliminar</u><em class=" fa fa-trash-o " aria-hidden="true " style="padding-left: 5px; "></em>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-12">
                     <span class="spanTarjetasCuentasBancarias">{{cuenta.tipoCuenta}}</span>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6 ">
+                <div class="col-6 ">
                     <label for=" " class="labelTarjetasCuentasBancarias ">****{{cuenta.numeroCuenta | slice: -5}}</label>
                 </div>
-                <div class="col-md-6" style="text-align: right;">
+                <div class="col-6" style="text-align: right;">
                     <button type="button" class="btn btn-primary" [routerLink]="['/actualizarCuenta', cuenta.id]">EDITAR</button>
                 </div>
             </div>
@@ -41,18 +41,18 @@
 
         <div class="agregarNuevaCuenta" style="margin-top: 10px;" [routerLink]="['/registroCuenta']">
             <div class="row">
-                <div class="col-md-4"></div>
-                <div class="col-md-4">
+                <div class="col-4"></div>
+                <div class="col-4">
                     <div class="row" style="text-align: center;">
-                        <div class="col-md-12">
+                        <div class="col-12">
                             <i class="fa fa-plus-circle fa-3x botonAdicionarNuevaCuenta" aria-hidden="true"></i>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4"></div>
+                <div class="col-4"></div>
             </div>
             <div class="row" style="text-align: center;">
-                <div class="col-md-12">
+                <div class="col-12">
                     <span class="textoAgregarNuevaCuenta">Agregar nueva cuenta</span>
                 </div>
             </div>
