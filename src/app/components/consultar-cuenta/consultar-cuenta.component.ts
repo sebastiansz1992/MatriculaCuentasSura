@@ -27,7 +27,7 @@ export class CuentasRegistradasComponent implements OnInit, OnDestroy {
     private ROUTE: Router
   ) {
     this.consultarCuentasRegistradas();
-    this.consultarBancos();
+    //this.consultarBancos();
   }
 
   /*****************************************/
@@ -40,7 +40,7 @@ export class CuentasRegistradasComponent implements OnInit, OnDestroy {
   /** Metodos personalizados para el componente */
 
   consultarBancos() {
-    this.cuentasRegistradasUsuario = this.MATRICULACUENTASSERVICES.consultarMatriculaCuentasMN(appConfig.URLBANCOSMN)
+    this.cuentasRegistradasUsuario = this.MATRICULACUENTASSERVICES.consultarMatriculaCuentasMN(appConfig.URLBANCOS)
       .subscribe( data => {
         console.log(data);
       });

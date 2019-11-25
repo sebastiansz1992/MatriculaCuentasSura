@@ -11,7 +11,7 @@ import { createCustomElement } from "@angular/elements";
 import { MatriculaCuentasService } from "./core/services/matricula-cuentas/matricula-cuentas.service";
 
 /** COMPONENTES */
-import { RegistroCuentaComponent } from './components/registrar-cuenta/registrar-cuenta.component';
+import { RegistrarCuentaComponent } from "./components/registrar-cuenta/registrar-cuenta.component";
 import { CuentasRegistradasComponent } from "./components/consultar-cuenta/consultar-cuenta.component";
 import { ActualizarCuentaComponent } from "./components/actualizar-cuenta/actualizar-cuenta.component";
 import { AppComponent } from "./app.component";
@@ -21,7 +21,7 @@ import { LoadingComponent } from "./shared/loading/loading/loading.component";
 @NgModule({
   declarations: [
     AppComponent,
-    RegistroCuentaComponent,
+    RegistrarCuentaComponent,
     CuentasRegistradasComponent,
     ActualizarCuentaComponent,
     LoadingComponent

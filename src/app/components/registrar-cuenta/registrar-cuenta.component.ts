@@ -11,7 +11,7 @@ import { MatriculaCuentasService } from "../../core/services/matricula-cuentas/m
   selector: "app-registrar-cuenta",
   templateUrl: "./registrar-cuenta.component.html"
 })
-export class RegistroCuentaComponent implements OnInit, OnDestroy {
+export class RegistrarCuentaComponent implements OnInit, OnDestroy {
 
   /** Variables globales */
   formsInscripcionCuentas: FormGroup;
