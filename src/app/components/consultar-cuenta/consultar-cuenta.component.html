@@ -16,7 +16,7 @@
         <div *ngFor="let cuenta of cuentasBancarias" class="tarjetasCuentasBancarias" style="margin-top: 10px;">
             <div class="row">
                 <div class="col-8">
-                    <img src="assets/images/logobancos/bancolombia.png" alt="Icono Bancolombia"><label for="" class="labelTarjetas" style="padding-left: 10px;">{{cuenta.banco}}</label>
+                    <img [src]="cuenta.urlLogoBanco" alt="Icono Bancolombia"><label for="" class="labelTarjetas" style="padding-left: 10px;">{{cuenta.bankName}}</label>
                 </div>
                 <div class="col-4">
                     <u class="eliminar" (click)="eliminarCuentaRegistrada()">Eliminar</u><em class=" fa fa-trash-o " aria-hidden="true " style="padding-left: 5px; "></em>
@@ -24,12 +24,12 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <span class="spanTarjetasCuentasBancarias">{{cuenta.tipoCuenta}}</span>
+                    <span class="spanTarjetasCuentasBancarias">{{cuenta.accountType}}</span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-6 ">
-                    <label for=" " class="labelTarjetasCuentasBancarias ">****{{cuenta.numeroCuenta | slice: -5}}</label>
+                    <label for=" " class="labelTarjetasCuentasBancarias ">****{{cuenta.account | slice: -5}}</label>
                 </div>
                 <div class="col-6" style="text-align: right;">
                     <button type="button" class="btn btn-primary" [routerLink]="['/actualizarCuenta', cuenta.id]">EDITAR</button>

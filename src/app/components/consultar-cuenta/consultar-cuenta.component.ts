@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import Swal, { SweetAlertResult } from "sweetalert2";
-import { Cuenta } from "../../core/models/cuenta";
+import { Cuenta } from '../../core/models/cuenta';
 import * as appConfig from "../../shared/appConfig";
 import { Subscription } from "rxjs";
 import { MatriculaCuentasObservableService } from "../../core/services/matricula-cuentas-observable/matricula-cuentas-observable.service";
@@ -20,6 +20,8 @@ export class CuentasRegistradasComponent implements OnInit, OnDestroy {
   cuentasBancarias: Array<Cuenta> = [];
 
   infoUsuario = {
+    id: "",
+    urlLogoBanco: "",
     accountType: "K",
     documentType: "13",
     document: "12345",
@@ -63,7 +65,24 @@ export class CuentasRegistradasComponent implements OnInit, OnDestroy {
   consultarCuentasRegistradas() {
     this.cuentasRegistradasUsuario = this.MATRICULACUENTASSERVICES.consultarMatriculaCuentasMN(appConfig.URLCONSULTAMS, this.infoUsuario)
       .subscribe( data => {
-        console.log(data);
+
+        if (data) {
+
+          this.cuentasBancarias = data.map((d: Cuenta, index: number) => {
+            d.id = index;
+            d.urlLogoBanco = "assets/images/logobancos/bancolombia.png";
+            return d;
+          });
+
+          this.SHAREDDATA.actualizarMatriculaCuentas(this.cuentasBancarias);
+          this.mostrarInicioInscripcionCuentas = true;
+
+        } else {
+
+          this.noTieneCuentasRegistradas = true;
+
+        }
+
       });
   }
 

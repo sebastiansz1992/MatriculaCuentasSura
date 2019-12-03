@@ -209,7 +209,7 @@ export class RegistrarCuentaComponent implements OnInit, OnDestroy {
   /** Destructor de peticiones observables para liberación de memoria */
 
   ngOnDestroy() {
-    this.listaBancos.unsubscribe();
+    //this.listaBancos.unsubscribe();
   }
 
   /**********************************************************/

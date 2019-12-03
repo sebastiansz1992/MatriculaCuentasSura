@@ -26,7 +26,13 @@ export class ActualizarCuentaComponent implements OnInit {
     private ACTIVEROUTE: ActivatedRoute,
     private ROUTE: Router,
     private SHAREDDATA: MatriculaCuentasObservableService
-  ) {
+  ) { }
+
+  /*****************************************/
+
+  /** Realiza cargas despúes del page load */
+
+  ngOnInit() {
     console.log("Se cargo actualizar cuenta");
     this.editarInformacionCuentaRegistrada = true;
     this.consultarCuentaActualizar();
@@ -34,29 +40,28 @@ export class ActualizarCuentaComponent implements OnInit {
 
   /*****************************************/
 
-  /** Realiza cargas despúes del page load */
-
-  ngOnInit() {}
-
-  /*****************************************/
-
   /** Metodos personalizados para el componente */
 
   consultarCuentaActualizar() {
+
     const id: string = this.ACTIVEROUTE.snapshot.params.id;
 
     this.SHAREDDATA.cuentaUsuario.subscribe(
       cuenta => {
         if (cuenta) {
-          this.cuentaEditar = cuenta.filter(c => c.id.toString() === id);
+          this.cuentaEditar = cuenta.filter(c => c.id.toString() === id)[0];
           this.cuenta = {
-            id: this.cuentaEditar[0].id,
-            tipoDocumento: this.cuentaEditar[0].tipoDocumento,
-            numeroDocumento: this.cuentaEditar[0].numeroDocumento,
-            tipoCuenta: this.cuentaEditar[0].tipoCuenta,
-            numeroCuenta: this.cuentaEditar[0].numeroCuenta,
-            banco: this.cuentaEditar[0].banco,
-            productoAsociado: this.cuentaEditar[0].productoAsociado
+            id: this.cuentaEditar.id,
+            account: this.cuentaEditar.account,
+            accountType: this.cuentaEditar.accountType,
+            bank: this.cuentaEditar.bank,
+            bankName: this.cuentaEditar.bankName,
+            urlLogoBanco: this.cuentaEditar.urlLogoBanco,
+            collectAut: "",
+            country: "",
+            docAccountHolder: this.cuentaEditar.docAccountHolder,
+            docTypeAccountHolder: "",
+            reference: ""
           };
         } else {
           this.ROUTE.navigate(["/cuentasRegistradas"]);
