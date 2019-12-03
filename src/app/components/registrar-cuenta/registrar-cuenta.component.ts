@@ -33,18 +33,6 @@ export class RegistrarCuentaComponent implements OnInit, OnDestroy {
     this.mostrarFormInscripcionCuentas = true;
     this.mostrarInicioInscripcionCuentas = true;
     console.log("Se cargo registro cuenta");
-
-    this.headers = {
-      "Content-Type": "application/json; chartset=UTF-8"
-    };
-
-    this.MATRICULACUENTASERVICES.crearMatriculaCuenta(
-      appConfig.URLGESTION,
-      this.registroCuenta,
-      this.headers
-    ).subscribe(data => {
-      console.log(data);
-    });
   }
 
   /*****************************************************/
@@ -52,12 +40,12 @@ export class RegistrarCuentaComponent implements OnInit, OnDestroy {
   /** Realiza cargas despúes del page load */
   ngOnInit() {
     this.validarCamposObligatorios();
-    this.cargarListaBancos();
+    //this.cargarListaBancos();
   }
 
   /** Metodos personalizados para el componente */
 
-  cargarListaBancos() {
+  /*cargarListaBancos() {
     this.listaBancos = this.MATRICULACUENTASERVICES.consultarMatriculaCuentas(
       appConfig.URLBANCOS
     ).subscribe(
@@ -83,7 +71,7 @@ export class RegistrarCuentaComponent implements OnInit, OnDestroy {
         console.log(errorServicio);
       }
     );
-  }
+  }*/
 
   validarCoincidirContrasenia(
     controlName: string,

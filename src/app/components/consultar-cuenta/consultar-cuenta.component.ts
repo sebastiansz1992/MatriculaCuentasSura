@@ -13,10 +13,22 @@ import { MatriculaCuentasService } from "../../core/services/matricula-cuentas/m
 })
 export class CuentasRegistradasComponent implements OnInit, OnDestroy {
   /** Variables globales */
+
   mostrarInicioInscripcionCuentas: boolean;
   noTieneCuentasRegistradas: boolean;
   cuentasRegistradasUsuario: Subscription;
   cuentasBancarias: Array<Cuenta> = [];
+
+  infoUsuario = {
+    accountType: "K",
+    documentType: "13",
+    document: "12345",
+    country: "",
+    bank: "",
+    reference1: "",
+    reference2: "",
+    pointer: ""
+  };
 
   /*****************************************/
 
@@ -26,58 +38,33 @@ export class CuentasRegistradasComponent implements OnInit, OnDestroy {
     private SHAREDDATA: MatriculaCuentasObservableService,
     private ROUTE: Router
   ) {
-    this.consultarCuentasRegistradas();
-    //this.consultarBancos();
+
   }
 
   /*****************************************/
 
   /** Realiza cargas despúes del page load */
-  ngOnInit() {}
+  ngOnInit() {
+    // this.consultarBancos();
+    this.consultarCuentasRegistradas();
+  }
 
   /*****************************************/
 
   /** Metodos personalizados para el componente */
 
   consultarBancos() {
-    this.cuentasRegistradasUsuario = this.MATRICULACUENTASSERVICES.consultarMatriculaCuentasMN(appConfig.URLBANCOS)
+    this.cuentasRegistradasUsuario = this.MATRICULACUENTASSERVICES.consultarMatriculaCuentasMN(appConfig.URLBANCOSMS, this.infoUsuario)
       .subscribe( data => {
         console.log(data);
       });
   }
 
   consultarCuentasRegistradas() {
-    this.cuentasRegistradasUsuario = this.MATRICULACUENTASSERVICES.consultarMatriculaCuentas(
-      appConfig.URLCONSULTA
-    ).subscribe(
-      data => {
+    this.cuentasRegistradasUsuario = this.MATRICULACUENTASSERVICES.consultarMatriculaCuentasMN(appConfig.URLCONSULTAMS, this.infoUsuario)
+      .subscribe( data => {
         console.log(data);
-        if (data) {
-          data["listAccounts"].forEach((value, index) =>
-            this.cuentasBancarias.push({
-              id: index,
-              tipoDocumento: value.docTypeAccountHolder,
-              numeroDocumento: value.docAccountHolder,
-              banco: value.bank,
-              numeroCuenta: value.account,
-              tipoCuenta: value.accountType,
-              productoAsociado: value.listProducts
-            })
-          );
-
-          this.SHAREDDATA.actualizarMatriculaCuentas(this.cuentasBancarias);
-          this.mostrarInicioInscripcionCuentas = true;
-        } else {
-          this.noTieneCuentasRegistradas = true;
-        }
-      },
-      errorServicio => {
-        console.log(
-          `Este es el error desde el ts del componente: ${errorServicio}`
-        );
-        console.log(errorServicio.message);
-      }
-    );
+      });
   }
 
   eliminarCuentaRegistrada() {

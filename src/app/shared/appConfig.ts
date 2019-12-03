@@ -9,7 +9,12 @@ export const URLCONSULTARMATRICULACUENTAS = "https://0i4q4gcam9.execute-api.us-e
 
 /** DESARROLLO */
 
-export const URLBANCOSMN = "http://localhost:8080/bancos";
+/** LOCAL */
+
+export const URLBANCOSMS = "http://localhost:9100/api/eps-financiera/v1/bancos";
+export const URLFRANQUICIASMS = "http://localhost:8080/api/matriculacuenta/v1/franquicias";
+export const URLGESTIONMS = "http://localhost:8080/api/matriculacuenta/v1/gestion";
+export const URLCONSULTAMS = "http://localhost:8080/api/matriculacuenta/v1/cuentas";
 
 /** MOCKS */
 

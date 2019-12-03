@@ -1,34 +1,35 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { map } from "rxjs/operators";
+import { Cuenta } from "../../models/cuenta";
 
 @Injectable({
   providedIn: "root"
 })
 export class MatriculaCuentasService {
+
   constructor(private HTTP: HttpClient) {}
 
-  consultarMatriculaCuentasMN(url: string) {
-    return this.HTTP.get(url, {responseType: "text"});
+  postQuery(url: string, params: object) {
+
+    const headers = new HttpHeaders({
+      "Content-Type": "application/json"
+    });
+    const options = { headers };
+
+    return this.HTTP.post(url, JSON.stringify(params), options);
+
   }
 
-  consultarMatriculaCuentas(url: string) {
-
-    return this.HTTP.get(url);
-
+  consultarMatriculaCuentasMN(url: string, params: object) {
+    return this.postQuery(url, params).pipe(
+      map(data => data["data"]["infoAccounts"]["listAccounts"])
+    );
   }
 
   crearMatriculaCuenta(url: string, params: any, headers: any) {
 
     return this.HTTP.post(url, JSON.stringify(params));
-
-  }
-
-  actualizarMatriculaCuenta(url: string, id: string) {
-
-    return this.HTTP.get(`${url}/?id=${id}`).pipe(
-      map( result => result['listAccounts'])
-    );
 
   }
 
