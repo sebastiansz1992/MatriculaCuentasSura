@@ -54,6 +54,7 @@ export class ActualizarCuentaComponent implements OnInit {
             id: this.cuentaEditar.id,
             account: this.cuentaEditar.account,
             accountType: this.cuentaEditar.accountType,
+            nameAccountType: this.cuentaEditar.nameAccountType,
             bank: this.cuentaEditar.bank,
             bankName: this.cuentaEditar.bankName,
             urlLogoBanco: this.cuentaEditar.urlLogoBanco,
